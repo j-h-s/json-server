@@ -1,7 +1,7 @@
 import Api from '@/services/Api'
 
 export default {
-  test (input) {
-    return Api().post('test', input)
+  submit (input) {
+    return Api().put('submit', input)
   }
 }
