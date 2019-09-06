@@ -13,9 +13,14 @@ export default new Router({
       component: List
     },
     {
-      path: '/input',
-      name: 'input',
+      path: '/upload',
+      name: 'upload',
       component: Input
+    },
+    {
+      path: '/*',
+      name: 'redirect',
+      redirect: '/'
     }
   ]
 })

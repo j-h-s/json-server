@@ -1,17 +1,36 @@
 <template>
-  <div>
-    <h1>List of Local JSON Files</h1>
-    <ul>
-      <li v-for="file in list" v-bind:key="file.name">
-        <a @click="open(file)">{{ file.name }}</a>
-        <!-- <a href="file.path" target="_blank" @click="open(file)">{{ file.name }}</a> -->
-        <!-- <a href="data:' + data + '" download="data.json" @click="open(file.name)">{{ file.name }}</a> -->
-      </li>
-    </ul>
-    <button @click="show">
-      Refresh
-    </button>
-    <div v-html="json"></div>
+  <div class="container">
+    <h1 class="title">Available Files</h1>
+    <table class="list">
+      <tr v-if="isEmpty(list)">
+        <td colspan=2>
+          <h2 id="empty">No files were found</h2>
+        </td>
+      </tr>
+
+      <tr v-for="file in list" v-bind:key="file.name">
+        <td id="name">{{ file.name }}</td>
+        <td id="show">
+          <button v-if="json.name === file.name" id="show-btn" @click="hide">hide</button>
+          <button v-else id="show-btn" @click="show(file)">show</button>
+        </td>
+      </tr>
+    </table>
+
+    <div class="upload">
+      <router-link :to="{name: 'upload'}">
+        <button id="upload-btn">upload a new file</button>
+      </router-link>
+    </div>
+
+    <div v-if="!isEmpty(json)" class="json">
+      <h2 id="name">
+        <button id="download-btn" @click="download(json)">
+          download {{ json.name }}
+        </button>
+      </h2>
+      <pre id="body">{{ json.body }}</pre>
+    </div>
   </div>
 </template>
 
@@ -22,34 +41,51 @@ export default {
   data () {
     return {
       list: [],
-      // data: null,
-      json: null
+      json: {}
     }
   },
 
   created () {
-    this.show()
+    this.fresh()
   },
 
   methods: {
-    async show () {
+    async fresh () {
       const response = await FileService.list()
       console.log(response.data)
       this.list = response.data
-      this.json = null
+      this.json = {}
     },
 
-    async open (file) {
+    async show (file) {
       const json = await FileService.open(file.name)
       console.log(json.data)
-      // this.data = 'text/json;charset=utf-8' + encodeURIComponent(JSON.stringify(json.data))
-      this.json = JSON.stringify(json.data, null, 2)
+      this.json = json.data
+    },
+
+    hide () {
+      this.json = {}
+    },
+
+    download (file) {
+      let e = document.createElement('a')
+      e.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(file.body))
+      e.setAttribute('download', file.name)
+      e.style.display = 'none'
+      document.body.appendChild(e)
+      e.click()
+      document.body.removeChild(e)
+    },
+
+    isEmpty (obj) {
+      return Object.keys(obj).length === 0
     }
+
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
+<style>
+  @import '../assets/css/style.css'
 </style>

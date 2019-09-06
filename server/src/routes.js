@@ -1,19 +1,11 @@
-const JsonController = require('./controllers/JsonController')
+const FileController = require('./controllers/FileController')
 
 module.exports = (app) => {
-  app.get('/', (req, res) => {
-    const response = {
-      message: 'Hello world'
-    }
+  app.get('/list', FileController.getList)
+  app.get('/file/:name', FileController.getFile)
+  app.put('/submit', FileController.submit)
 
-    res.send(response)
+  app.all('*', (req, res) => {
+    res.redirect('http://localhost:3333/')
   })
-
-  app.get('/list', JsonController.list)
-  app.put('/submit', JsonController.submit)
-  app.get('/file/:name', JsonController.file)
-
-  // app.get('/file/:name', (req, res) => {
-  //   res.download('./../public/files/colors.json')
-  // })
 }
