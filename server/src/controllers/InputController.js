@@ -9,7 +9,7 @@ module.exports = {
       if (data) {
         res.send({
           code: 400,
-          message: 'File ' + req.body.name + ' already exists. Please choose another name.'
+          message: 'A file named ' + req.body.name + ' already exists. Please choose another name.'
         })
         return
       }
