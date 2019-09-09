@@ -1,6 +1,6 @@
 const fs = require('fs')
 const moment = require('moment')
-const fileDir = './../public/files/'
+const fileDir = './static/files/'
 const logFile = './log/input.log'
 
 module.exports = {
@@ -24,9 +24,9 @@ module.exports = {
 const logJson = (body) => {
   const input = body.input.split(/\n/)
 
-  let output = '\n[ ' + moment().format() + ' ] ' + body.name
+  let output = '[ ' + moment().format() + ' ] ' + body.name + '\n'
   input.map((str) => {
-    output += '\n[ ' + moment().format() + ' ] ' + str
+    output += '[ ' + moment().format() + ' ] ' + str + '\n'
   })
 
   fs.appendFile(logFile, output, 'utf-8', (err) => {
