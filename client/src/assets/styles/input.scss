@@ -1,0 +1,46 @@
+@import './main.scss';
+
+.message {
+  width: 100%;
+  font-size: $big-font;
+  font-weight: bolder;
+  color: red;
+  margin-bottom: $big-space;
+}
+
+.input {
+  width: 100%;
+  height: 500px;
+  font-size: $little-font;
+  border: $main-border;
+  margin-bottom: $big-space;
+}
+
+.name {
+  width: 100%;
+  font-size: $little-font;
+  font-weight: bold;
+  margin-bottom: $big-space;
+
+  #name-input {
+    width: 80%;
+    font-size: $little-font;
+    border: $main-border;
+  }
+}
+
+.submit {
+  margin-right: 50px;
+
+  #submit-btn {
+
+  }
+}
+
+.cancel {
+  margin-left: 50px;
+
+  #cancel-btn {
+
+  }
+}

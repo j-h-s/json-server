@@ -1,0 +1,61 @@
+@import './main.scss';
+
+.list {
+  width: 100%;
+  font-size: $big-font;
+
+  #empty {
+    text-align: center;
+    margin-top: 0px;
+  }
+
+  td {
+    text-align: left;
+    padding: 5px;
+    vertical-align: middle;
+  }
+
+  #name {
+
+  }
+
+  #show {
+    text-align: right;
+  }
+
+  #show-btn {
+
+  }
+}
+
+
+.upload {
+  margin-top: $little-space;
+  padding: $little-space;
+
+  #upload-btn {
+
+  }
+}
+
+
+.json {
+  padding: $little-space;
+
+  #name {
+    font-size: $big-font;
+    border-top: $main-border;
+    padding-top: $big-space;
+  }
+
+  #download-btn {
+
+  }
+
+  #body {
+    border: $main-border;
+    padding: $little-space;
+    text-align: left;
+    font-size: $little-font;
+  }
+}

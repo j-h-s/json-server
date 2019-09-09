@@ -1,0 +1,41 @@
+@import './_variables.scss';
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: $big-space;
+}
+
+
+.container {
+  width: 800px;
+  margin: auto;
+}
+
+
+.title {
+  font-size: 5rem;
+  margin-top: -50px;
+  margin-bottom: $big-space;
+}
+
+
+button {
+  background: $main-blue;
+  color: #fff;
+  font-size: $big-font;
+  min-width: 100px;
+  border-radius: 10px;
+
+  &:hover {
+    background: #1C6EA4;
+    cursor: pointer;
+  }
+
+  &:active {
+    background: #144E75;
+  }
+}

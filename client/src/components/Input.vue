@@ -16,8 +16,8 @@
       </textarea>
 
       <div class="name">
-        <label for="name-in">File name:</label>
-        <input id="name-in" type="text" name="name-in" v-model="name">
+        <label for="name-input">File name: </label>
+        <input id="name-input" type="text" name="name-input" v-model="name">
       </div>
 
       <span class="submit">
@@ -27,7 +27,7 @@
       </span>
 
       <span class="cancel">
-        <router-link :to="{name: 'list'}">
+        <router-link :to="{ name: 'list' }">
           <button id="cancel-btn">
             cancel
           </button>
@@ -74,7 +74,7 @@ export default {
       }
 
       if (!this.validateJson(this.input)) {
-        this.message = 'Invalid JSON detected. Please only use valid JSON.'
+        this.message = 'Invalid input. Please use only valid JSON.'
         return
       }
 
@@ -101,7 +101,6 @@ export default {
     validateName (string) {
       if (!string.endsWith('.json')) {
         this.name = string + '.json'
-        console.log(this.name)
       }
     }
   }
@@ -109,6 +108,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-  @import '../assets/css/style.css'
+<style lang="scss">
+  @import '../assets/styles/input.scss'
 </style>

@@ -18,7 +18,7 @@
     </table>
 
     <div class="upload">
-      <router-link :to="{name: 'upload'}">
+      <router-link :to="{ name: 'upload' }">
         <button id="upload-btn">upload a new file</button>
       </router-link>
     </div>
@@ -95,6 +95,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-  @import '../assets/css/style.css'
+<style lang="scss">
+  @import '../assets/styles/list.scss'
 </style>
