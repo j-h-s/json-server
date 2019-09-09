@@ -1,29 +1,40 @@
 <template>
   <div class="container">
     <h1 class="title">Input JSON</h1>
-    <textarea
-      class="input"
-      type="input"
-      name="input"
-      v-model="input"
-    >
-    </textarea>
 
-    <span class="submit">
-      <button id="submit-btn" @click="submit">
-        submit
-      </button>
-    </span>
+    <h2 v-if="message" class="message">
+      {{ this.message }}
+    </h2>
 
-    <span class="cancel">
-      <router-link :to="{name: 'list'}">
-        <button id="cancel-btn" @click="cancel">
-          cancel
+    <form id="json" @submit="validate">
+      <textarea
+        class="input"
+        type="input"
+        name="input"
+        v-model="input"
+      >
+      </textarea>
+
+      <div class="name">
+        <label for="name-in">File name:</label>
+        <input id="name-in" type="text" name="name-in" v-model="name">
+      </div>
+
+      <span class="submit">
+        <button id="submit-btn" type="submit" value="submit">
+          submit
         </button>
-      </router-link>
-    </span>
+      </span>
 
-    <div v-html="reply" />
+      <span class="cancel">
+        <router-link :to="{name: 'list'}">
+          <button id="cancel-btn">
+            cancel
+          </button>
+        </router-link>
+      </span>
+    </form>
+
   </div>
 </template>
 
@@ -34,17 +45,59 @@ export default {
   data () {
     return {
       input: '',
-      reply: null
+      name: '',
+      message: null
     }
   },
 
   methods: {
     async submit () {
       const response = await InputService.submit({
-        input: this.input
+        input: this.input,
+        name: this.name
       })
       console.log(response.data)
-      this.reply = response.data
+      this.message = response.data.message
+    },
+
+    validate (form) {
+      form.preventDefault()
+
+      if (!this.input) {
+        this.message = 'Please input some JSON in the area below.'
+        return
+      }
+
+      if (!this.validateJson(this.input)) {
+        this.message = 'Invalid JSON detected. Please only use valid JSON.'
+        return
+      }
+
+      if (!this.name) {
+        this.message = 'Please supply a name for your file.'
+        return
+      }
+
+      this.validateName(this.name)
+      this.submit()
+    },
+
+    validateJson (string) {
+      try {
+        const obj = JSON.parse(string)
+        if (obj && typeof obj === 'object') {
+          return true
+        }
+      } catch (e) {
+        return false
+      }
+    },
+
+    validateName (string) {
+      if (!string.endsWith('.json')) {
+        this.name = string + '.json'
+        console.log(this.name)
+      }
     }
   }
 }
