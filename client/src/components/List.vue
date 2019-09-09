@@ -41,7 +41,8 @@ export default {
   data () {
     return {
       list: [],
-      json: {}
+      json: {},
+      cache: []
     }
   },
 
@@ -58,9 +59,19 @@ export default {
     },
 
     async show (file) {
-      const json = await FileService.open(file.name)
-      console.log(json.data)
+      let json = {}
+
+      if (this.isCached(file)) {
+        json = await this.cache.filter(data => {
+          return data.name === file.name
+        })
+        this.json = json[0]
+        return
+      }
+
+      json = await FileService.open(file.name)
       this.json = json.data
+      this.cache.push(this.json)
     },
 
     hide () {
@@ -79,6 +90,10 @@ export default {
 
     isEmpty (obj) {
       return Object.keys(obj).length === 0
+    },
+
+    isCached (obj) {
+      return this.cache.some(data => data.name === obj.name)
     }
 
   }
