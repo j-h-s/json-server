@@ -56,8 +56,13 @@ export default {
         input: this.input,
         name: this.name
       })
-      console.log(response.data)
+
       this.message = response.data.message
+
+      if (response.data.code === 201) {
+        this.input = ''
+        this.name = ''
+      }
     },
 
     validate (form) {

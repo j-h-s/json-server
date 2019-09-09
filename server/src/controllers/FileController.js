@@ -9,12 +9,8 @@ module.exports = {
       } else {
         let list = []
         files.forEach((file) => {
-          list.push({
-            "name": file,
-            "path": fileDir + file
-          })
+          list.push({ "name": file })
         })
-        console.log(list)
         res.send(JSON.stringify(list))
       }
     })
@@ -30,17 +26,8 @@ module.exports = {
         console.log(err)
       } else {
         json.body = file
-        console.log(json.body)
         res.send(json)
       }
     })
-  },
-
-  submit (req, res) {
-    const response = {
-      message: `Input received: ${req.body.input}`
-    }
-
-    res.send(response)
   }
 }
