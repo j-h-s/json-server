@@ -53,25 +53,19 @@ export default {
   methods: {
     async fresh () {
       const response = await FileService.list()
-      console.log(response.data)
       this.list = response.data
       this.json = {}
     },
 
     async show (file) {
-      let json = {}
-
-      if (this.isCached(file)) {
-        json = await this.cache.filter(data => {
-          return data.name === file.name
-        })
-        this.json = json[0]
-        return
+      if (!this.isCached(file)) {
+        const json = await FileService.open(file.name)
+        this.cache.push(json.data)
       }
 
-      json = await FileService.open(file.name)
-      this.json = json.data
-      this.cache.push(this.json)
+      this.json = await this.cache.filter(data => {
+        return data.name === file.name
+      })[0]
     },
 
     hide () {
