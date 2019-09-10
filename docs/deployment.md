@@ -17,8 +17,6 @@ Deployment
     * `cd server && npm install`
 
 ## 3) Setup the client
-* Create the .env file
-  * `cp .env.example .env`
 * Run the client
   * `npm run serve`
 
