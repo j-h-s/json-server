@@ -8,7 +8,7 @@
         </td>
       </tr>
 
-      <tr v-for="file in list" v-bind:key="file.name">
+      <tr v-for="file in list" :key="file.name">
         <td id="name">{{ file.name }}</td>
         <td id="show">
           <button v-if="json.name === file.name" id="show-btn" @click="hide">hide</button>

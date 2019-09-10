@@ -7,16 +7,11 @@
     </h2>
 
     <form id="json" @submit="validate">
-      <textarea
-        class="input"
-        type="input"
-        name="input"
-        v-model="input"
-      >
+      <textarea class="input" type="input" name="input" v-model="input">
       </textarea>
 
       <div class="name">
-        <label for="name-input">File name: </label>
+        <label id="label" for="name-input">File name: </label>
         <input id="name-input" type="text" name="name-input" v-model="name">
       </div>
 
