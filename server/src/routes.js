@@ -7,6 +7,6 @@ module.exports = (app) => {
   app.put('/submit', InputController.submitJson)
 
   app.all('*', (req, res) => {
-    res.redirect('http://localhost:3333/')
+    res.redirect('http://localhost:8080/')
   })
 }
