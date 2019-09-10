@@ -2,25 +2,30 @@
   <div class="container">
     <h1 class="title">Input JSON</h1>
 
+    <!-- status message -->
     <h2 v-if="message" class="message">
       {{ this.message }}
     </h2>
 
     <form id="json" @submit="validate">
+      <!-- main input -->
       <textarea class="input" type="input" name="input" v-model="input">
       </textarea>
 
+      <!-- file name input -->
       <div class="name">
         <label id="label" for="name-input">File name: </label>
         <input id="name-input" type="text" name="name-input" v-model="name">
       </div>
 
+      <!-- submit button -->
       <span class="submit">
         <button id="submit-btn" type="submit" value="submit">
           submit
         </button>
       </span>
 
+      <!-- return to list button -->
       <span class="cancel">
         <router-link :to="{ name: 'list' }">
           <button id="cancel-btn">
@@ -46,6 +51,7 @@ export default {
   },
 
   methods: {
+    // submit form data
     async submit () {
       const response = await InputService.submit({
         input: this.input,
@@ -60,6 +66,7 @@ export default {
       }
     },
 
+    // validate the form
     validate (form) {
       form.preventDefault()
 
@@ -82,6 +89,7 @@ export default {
       this.submit()
     },
 
+    // validate json
     validateJson (string) {
       try {
         const obj = JSON.parse(string)
@@ -93,6 +101,7 @@ export default {
       }
     },
 
+    // validate file extension
     validateName (string) {
       if (!string.endsWith('.json')) {
         this.name = string + '.json'

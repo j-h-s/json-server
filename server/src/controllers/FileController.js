@@ -2,6 +2,9 @@ const fs = require('fs')
 const fileDir = './static/files/'
 
 module.exports = {
+  /*
+   * Return a list of all files in a directory
+   */
   getList (req, res) {
     fs.readdir(fileDir, (err, files) => {
       if (err) {
@@ -9,28 +12,34 @@ module.exports = {
         return
       }
 
+      // build array of file names
       let list = []
       files.forEach((file) => {
         if (file.endsWith('.json')) {
           list.push({ "name": file })
         }
       })
+
+      // return array as a string
       res.send(JSON.stringify(list))
     })
   },
 
+  /*
+   * Retrieve the contents of one file
+   */
   getFile (req, res) {
-    let json = new Object()
-    json.name = req.params.name
-    json.path = fileDir + req.params.name
-
-    fs.readFile(json.path, 'utf-8', (err, file) => {
+    fs.readFile(fileDir + req.params.name, 'utf-8', (err, file) => {
       if (err) {
         console.log(err)
         return
       }
 
-      json.body = file
+      const json = new Object({
+        name: req.params.name,
+        body: file
+      })
+
       res.send(json)
     })
   }
